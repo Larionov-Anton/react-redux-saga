@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from "react-redux";
+import Error from "./components/error";
+import News from "./components/news/news";
+import { getLatestNewsAction, getNews } from "./redux/actions/actionsCreators";
 
-function App() {
+const App = () => {
+  const latestNews = useSelector((store) => store?.news?.latestNews || []);
+  const popularNews = useSelector((store) => store?.news?.popularNews || []);
+  const error = useSelector((store) => store.error);
+  const dispatch = useDispatch();
+
+	console.log(error)
+
+  const handleNews = () => {
+    dispatch(getNews());
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={handleNews}>Get News</button>
+      {error.isError && <Error error={error} />}
+      <News news={latestNews} title="Latest News" />
+      <News news={popularNews} title="Popular News" />
     </div>
   );
-}
+};
 
 export default App;

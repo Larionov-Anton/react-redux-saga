@@ -1,0 +1,10 @@
+
+export const getLatesNews = async (searchQuery) => {
+	const request = await fetch(`http://hn.algolia.com/api/v1/search?query=${searchQuery}&hitsPerPage=10&page=0`)
+	return await request.json()
+}
+
+export const getPopularNews = async () => {
+	const request = await fetch(`ttp://hn.algolia.com/api/v1/search?query=&hitsPerPage=10&page=0`)
+	return await request.json()
+}
